@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3000;
 
-// const User = require("./userModel.js");
 const app = express();
 
 app.use(logger("dev"));
@@ -19,15 +18,8 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
     useFindAndModify: false
 });
 
-// app.post("/submit", ({ body }, res) => {
-//   User.create(body)
-//     .then(dbUser => {
-//       res.json(dbUser);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
+// routes
+app.use(require("./routes/api.js"));
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);
