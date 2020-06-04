@@ -12,6 +12,8 @@ router.get("/api/workouts/range", (req, res) => {
         });
 });
 
-
+router.get('/exercise', (req, res) => {
+    res.sendFile('exercise.html', { root: "./public" });
+})
 
 module.exports = router;
