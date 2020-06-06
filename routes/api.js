@@ -55,6 +55,7 @@ router.put("/api/workouts/:id", async function (req, res) { //  { body }
         console.log(JSON.stringify(body));
         // let { id } = body;
         const result = await db.Workout.updateOne({ _id: id }, { $push: { exercises: body } });
+        // const result = await db.Workout.updateOne({ _id = false }, { $push: { exercises: body } });
         console.log(result);
         res.json(result);
     } catch (error) {
