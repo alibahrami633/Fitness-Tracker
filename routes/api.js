@@ -38,11 +38,12 @@ router.get("/api/workouts/range", async function (req, res) {
 
 router.post("/api/workouts", async function (req, res) {
     try {
-        console.log(req.body);
         const result = await db.Workout.create(req.body);
-        // console.log(JSON.stringify(result));
         return res.json(result);
     } catch (error) {
+        if (error.name == 'ValidationError') {
+            return response.status(422).json(error.errors["exercises"].message);
+        }
         console.log(error);
         return res.status(400).send("Add workout failed!");
     }
