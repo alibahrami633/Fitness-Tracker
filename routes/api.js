@@ -19,48 +19,55 @@ router.get("/stats", (req, res) => {
 router.get("/api/workouts", async function (req, res) {
     try {
         const result = await db.Workout.find({});
-        res.json(result);
+        return res.json(result);
     } catch (error) {
         console.log(error);
-        res.status(400).send("Error fetching Workouts list!");
+        return res.status(400).send("Error fetching Workouts list!");
     }
 });
 
 router.get("/api/workouts/range", async function (req, res) {
     try {
         const result = await db.Workout.find({});
-        res.json(result);
+        return res.json(result);
     } catch (error) {
         console.log(error);
-        res.status(400).send("Error fetching Workouts list!");
+        return res.status(400).send("Error fetching Workouts list!");
     }
 });
 
-router.post("/api/workouts", async function ({ body }, res) {
+router.post("/api/workouts", async function (req, res) {
     try {
-        const result = await db.Workout.create(body);
-        res.json(result);
+        console.log(req.body);
+        const result = await db.Workout.create(req.body);
+        // console.log(JSON.stringify(result));
+        return res.json(result);
     } catch (error) {
         console.log(error);
-        res.status(400).send("Add workout failed!");
+        return res.status(400).send("Add workout failed!");
     }
 });
 
-router.put("/api/workouts/:id", async function (req, res) { //  { body }
+router.put("/api/workouts/:id", async function (req, res) {
     try {
         let id = req.params.id;
-        let body = req.body;
+        const { type, name, weight, sets, reps, duration, distance } = req.body;
 
-        // console.log("---------------> ID = " + id);
-        console.log(JSON.stringify(body));
-        // let { id } = body;
-        const result = await db.Workout.updateOne({ _id: id }, { $push: { exercises: body } });
-        // const result = await db.Workout.updateOne({ _id = false }, { $push: { exercises: body } });
+        let exercise;
+
+        if (type === "cardio") {
+            exercise = { type, name, duration, distance };
+        } else if (type === "resistance") {
+            exercise = { type, name, duration, weight, reps, sets };
+        } else return res.status(400).send("Error: Exercise type not supported.");
+
+        const result = await db.Workout.updateOne({ _id: id }, { $push: { exercises: exercise } });
+
         console.log(result);
-        res.json(result);
+        return res.json(result);
     } catch (error) {
         console.log(error);
-        res.status(200).send("Edit Workout failed!");
+        return res.status(200).send("Edit Workout failed!");
     }
 });
 
