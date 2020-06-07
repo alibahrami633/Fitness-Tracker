@@ -176,10 +176,20 @@ button {
 }
 
 #toast.success {
+  content: "success!";
   opacity: 1;
   right: 10px;
   background-color: hsl(94, 40%, 86%);
   color: hsl(94, 90%, 16%);
+  transition: all 1.2s;
+}
+
+#toast.failure {
+  content: "failure!";
+  opacity: 1;
+  right: 10px;
+  background-color: hsl(0, 41%, 86%);
+  color: hsl(0, 90%, 16%);
   transition: all 1.2s;
 }
 

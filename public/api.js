@@ -9,29 +9,60 @@ const API = {
     const json = await res.json();
     return json[json.length - 1];
   },
+
   async addExercise(data) {
     const id = location.search.split("=")[1];
 
-    const res = await fetch("/api/workouts/" + id, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
+    try {
+      const res = await fetch("/api/workouts/" + id, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
 
-    const json = await res.json();
+      if (res.status == 422) {
+        let message = await res.json()
+        console.log(message);
+        alert(message);
+        return false;
+      }
+      const json = await res.json();
+      return json;
+    }
+    catch (error) {
+      console.log(error);
+      alert(error);
+      return false;
+    }
 
-    return json;
+
   },
+
   async createWorkout(data = {}) {
-    const res = await fetch("/api/workouts", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
-    });
+    try {
+      const res = await fetch("/api/workouts", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+      });
 
-    const json = await res.json();
+      if (res.status == 422) {
+        let message = await res.json()
+        console.log(message);
+        alert(message);
+        return false;
+      }
+      const json = await res.json();
 
-    return json;
+      return json;
+    }
+    catch (error) {
+      console.log(error);
+      alert(error);
+      return false;
+    }
+
+
   },
 
   async getWorkoutsInRange() {
