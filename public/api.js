@@ -9,10 +9,16 @@ const API = {
     const json = await res.json();
     return json[json.length - 1];
   },
-
   async addExercise(data) {
-    const id = location.search.split("=")[1];
-
+    let id = location.search.split("=")[1];
+    // if a new workout is being created then it should update the latest id to the newly created workout id
+    if (id === undefined) {
+      try {
+        id = await this.getLastWorkout();
+      } catch (err) {
+        console.log(err);
+      }
+    }
     try {
       const res = await fetch("/api/workouts/" + id, {
         method: "PUT",
@@ -34,10 +40,7 @@ const API = {
       alert(error);
       return false;
     }
-
-
   },
-
   async createWorkout(data = {}) {
     try {
       const res = await fetch("/api/workouts", {
@@ -46,25 +49,22 @@ const API = {
         headers: { "Content-Type": "application/json" }
       });
 
-      if (res.status == 422) {
-        let message = await res.json()
-        console.log(message);
-        alert(message);
-        return false;
-      }
+      // if (res.status == 422) {
+      //   let message = await res.json()
+      //   console.log(message);
+      //   alert(message);
+      //   return false;
+      // }
       const json = await res.json();
 
       return json;
     }
     catch (error) {
       console.log(error);
-      alert(error);
+      // alert(error);
       return false;
     }
-
-
   },
-
   async getWorkoutsInRange() {
     const res = await fetch(`/api/workouts/range`);
     const json = await res.json();
