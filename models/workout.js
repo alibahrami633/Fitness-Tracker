@@ -23,28 +23,28 @@ const WorkoutSchema = new Schema({
             },
             duration: {
                 type: Number,
-                min: [0, "Don't be an idiottt! :D."],
-                max: [300, "You are bluffing! pffff..."]
+                min: [0, "Don't be an idiot! :D."],
+                max: [300, "You're bluffing! pffff..."]
             },
             distance: {
                 type: Number,
-                min: [0, "Don't be an idiottt! :D."],
-                max: [100, "You are bluffing! pffff..."]
+                min: [0, "Don't be an idiot! :D."],
+                max: [100, "You're bluffing! pffff..."]
             },
             weight: {
                 type: Number,
-                min: [0, "Don't be an idiottt! :D."],
-                max: [1000, "You are bluffing! pffff..."]
+                min: [0, "Don't be an idiot! :D."],
+                max: [1000, "You're bluffing! pffff..."]
             },
             reps: {
                 type: Number,
-                min: [0, "Don't be an idiottt! :D."],
-                max: [50, "You're gonna kill yourself!"]
+                min: [0, "Don't be an idiot! :D."],
+                max: [50, "You're gonna kill yourself dude!"]
             },
             sets: {
                 type: Number,
-                min: [0, "Don't be an idiottt! :D."],
-                max: [50, "You're gonna kill yourself!"]
+                min: [0, "Don't be an idiot! :D."],
+                max: [50, "You're gonna kill yourself dude!"]
             },
             _id: false
         }

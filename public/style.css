@@ -445,3 +445,7 @@ form > button {
     right: -320px;
   }
 }
+
+.centered {
+  text-align: center;
+}

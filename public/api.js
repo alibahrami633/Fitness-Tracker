@@ -10,6 +10,7 @@ const API = {
     return json[json.length - 1];
   },
   async addExercise(data) {
+    // console.log("----------->" + JSON.stringify(data));
     let id = location.search.split("=")[1];
     // if a new workout is being created then it should update the latest id to the newly created workout id
     if (id === undefined) {
@@ -26,18 +27,22 @@ const API = {
         body: JSON.stringify(data)
       });
 
+      let json = await res.json();
+      json = JSON.stringify(json).replace(/"/g, '').replace(/, /g, '<br /><br />').replace('Validation failed: ', '');
+
       if (res.status == 422) {
-        let message = await res.json()
-        console.log(message);
-        alert(message);
+        // console.log(json);
+        $(".content p").html(json);
+        $('.ui.basic.modal').modal('show');
+        // alert(json);
         return false;
       }
-      const json = await res.json();
+
       return json;
     }
     catch (error) {
       console.log(error);
-      alert(error);
+      // alert(error);
       return false;
     }
   },
@@ -48,13 +53,6 @@ const API = {
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" }
       });
-
-      // if (res.status == 422) {
-      //   let message = await res.json()
-      //   console.log(message);
-      //   alert(message);
-      //   return false;
-      // }
       const json = await res.json();
 
       return json;

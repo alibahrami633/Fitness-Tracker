@@ -23,7 +23,7 @@ async function initExercise() {
 
   if (location.search.split("=")[1] === undefined) {  // exrcise? => after ? is undefined
     workout = await API.createWorkout()
-    console.log(workout)
+    // console.log(workout)
   }
   if (workout) {
     location.search = "?id=" + workout._id;
@@ -117,12 +117,13 @@ async function handleFormSubmit(event) {
 
   if (await API.addExercise(workoutData)) {
     clearInputs();
+    validateInputs();
     toast.classList.add("success");
     toast.innerHTML = "Sucsess!";
   }
   else {
     toast.classList.add("failure");
-    toast.textContent = "failure!";
+    toast.textContent = "Failure!";
     shouldNavigateAway = false;
   }
 }
