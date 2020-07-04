@@ -38,9 +38,7 @@
 
     - Clone this repo
 
-    - Clone this repo through git bash to your local computer using:
-
-        git clone `git@github.com:alibahrami633/Burger.git`
+    - Clone this repo through git bash to your local computer using
 
     - Install packages using "npm install"
 
